@@ -7,6 +7,8 @@ Ganjil 2022/2023
 
 ## NPM : 2106708311
 
+## link deploy: https://tugas-pbp-syahrul.herokuapp.com/katalog/
+
 ### Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara `urls.py`, `views.py`, `models.py`, dan berkas html;
 
 ![MVT Django](../public/img/Django-mvt.jpg))
