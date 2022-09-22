@@ -1,0 +1,104 @@
+[
+  {
+    "model": "mywatchlist.itemwatchlist",
+    "pk": 1,
+    "fields": {
+      "watched": "Yes",
+      "title": "Captain Marvel",
+      "rating": 9,
+      "release_date": "2019-03-08",
+      "review": "WOW"
+    }
+  },
+  {
+    "model": "mywatchlist.itemwatchlist",
+    "pk": 2,
+    "fields": {
+      "watched": "Not Yet",
+      "title": "Captain America: Civil War",
+      "rating": 8,
+      "release_date": "2016-04-27",
+      "review": "Amazing!"
+    }
+  },  {
+  "model": "mywatchlist.itemwatchlist",
+  "pk": 3,
+  "fields": {
+    "watched": "Yes",
+    "title": "Hulk",
+    "rating": 7,
+    "release_date": "2003-06-20",
+    "review": "Wow, what a movie!"
+  }
+},  {
+  "model": "mywatchlist.itemwatchlist",
+  "pk": 4,
+  "fields": {
+    "watched": "Yes",
+    "title": "Thor",
+    "rating": 9,
+    "release_date": "2011-04-21",
+    "review": "Wow"
+  }
+},  {
+  "model": "mywatchlist.itemwatchlist",
+  "pk": 5,
+  "fields": {
+    "watched": "Not Yet",
+    "title": "Spiderman: No Way Home",
+    "rating": 9,
+    "release_date": "2021-12-17",
+    "review": "Awesome"
+  }
+},  {
+  "model": "mywatchlist.itemwatchlist",
+  "pk": 6,
+  "fields": {
+    "watched": "Yes",
+    "title": "IronMan",
+    "rating": 8,
+    "release_date": "2008-04-30",
+    "review": "Wow"
+  }
+},  {
+  "model": "mywatchlist.itemwatchlist",
+  "pk": 7,
+  "fields": {
+    "watched": "Yes",
+    "title": "Ironman 2",
+    "rating": 9,
+    "release_date": "2010-05-07",
+    "review": "Cool"
+  }
+},  {
+  "model": "mywatchlist.itemwatchlist",
+  "pk": 8,
+  "fields": {
+    "watched": "Yes",
+    "title": "Avengers",
+    "rating": 9,
+    "release_date": "2012-04-25",
+    "review": "GG"
+  }
+},  {
+  "model": "mywatchlist.itemwatchlist",
+  "pk": 9,
+  "fields": {
+    "watched": "Yes",
+    "title": "Avengers: Age of Ultron",
+    "rating": 9,
+    "release_date": "2015-04-22",
+    "review": "I like it"
+  }
+},  {
+  "model": "mywatchlist.itemwatchlist",
+  "pk": 10,
+  "fields": {
+    "watched": "Yes",
+    "title": "Avengers: Infinity War",
+    "rating": 10,
+    "release_date": "2018-04-25",
+    "review": "THAT WAS AWESOME"
+  }
+}
+]

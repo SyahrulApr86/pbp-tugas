@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Lab 2 Assignment PBP/PBD</h1>
+
+<h5>Name: </h5>
+<p>{{nama}}</p>
+
+<h5>Student ID: </h5>
+<p>{{student_id}}</p>
+
+<h2>My Watchlist</h2>
+
+{% if status %}
+<h3>Selamat, kamu sudah banyak menonton!</h3>
+{% else %}
+<h3>Wah, kamu masih sedikit menonton!</h3>
+{% endif %}
+
+<table>
+	<tr>
+		<th>Title</th>
+		<th>Status</th>
+		<th>Rating</th>
+		<th>Release Date</th>
+		<th>Review</th>
+	</tr>
+
+	{% for barang in list_film %}
+	<tr>
+		<th>{{barang.title}}</th>
+		<th>{{barang.watched}}</th>
+		<th>{{barang.rating}}</th>
+		<th>{{barang.release_date}}</th>
+		<th>{{barang.review}}</th>
+	</tr>
+	{% endfor %}
+</table>
+
+{% endblock content %}
