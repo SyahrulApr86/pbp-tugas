@@ -7,8 +7,6 @@ Ganjil 2022/2023
 
 ## NPM : 2106708311
 
-## link deploy: https://tugas-pbp-syahrul.herokuapp.com/katalog/
-
 ### Jelaskan perbedaan antara JSON, XML, dan HTML!
 
 
