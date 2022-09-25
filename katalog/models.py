@@ -9,4 +9,4 @@ class CatalogItem(models.Model):
     item_url = models.URLField()
 
     def __str__(self):
-        return self.judul
+        return self.item_name
