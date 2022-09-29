@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h4>Halo {{nama}}, selamat datang di ToDoList</h4>
+<h1>Tugas 4 PBP/PBD</h1>
+
+<h3>Halo {{nama}}, selamat datang di Aplikasi To Do List</h3>
 
 <button><a href="{% url 'todolist:create_task' %}">Tambah Tugas</a></button>
 
@@ -20,7 +22,14 @@
 		<th>{{tugas.date}}</th>
 		<th>{{tugas.title}}</th>
 		<th>{{tugas.description}}</th>
-		<th>{{tugas.is_finished}}</th>
+		{% if tugas.is_finished %}
+			<th>Selesai</th>
+		    <th><button><a href = "{% url 'todolist:ubah_status' tugas.id %}">Tandai Belum Selesai</a></button></th>
+		{% else %}
+			<th>Belum Selesai</th>
+			<th><button><a href = "{% url 'todolist:ubah_status' tugas.id %}">Tandai Selesai</a></button></th>
+		{% endif %}
+		<th><button><a href = "{% url 'todolist:hapus' tugas.id %}">Hapus</a></button></th>
 
 	</tr>
 	{% endfor %}

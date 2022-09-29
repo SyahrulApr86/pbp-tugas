@@ -56,18 +56,18 @@ def show_todolist(request):
     }
     return render(request, 'todolist.html', context)
 
-def hapus(request, id):
-    task = Task.objects.get(pk=id)
+def hapus(request, pk):
+    task = Task.objects.get(id=pk)
     task.delete()
     return redirect('todolist:show_todolist')
 
-def ubah_status(request, id):
-    task = Task.objects.get(pk=id)
-    if task.status:
-        task.status = False
+def ubah_status(request, pk):
+    todolist = Task.objects.get(pk=pk)
+    if todolist.is_finished:
+        todolist.is_finished = False
     else:
-        task.status = True
-    task.save()
+        todolist.is_finished = True
+    todolist.save()
     return redirect('todolist:show_todolist')
 
 def tambah(request):
