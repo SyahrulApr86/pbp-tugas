@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h4>Halo {{nama}}, selamat datang di ToDoList</h4>
+
+<button><a href="{% url 'todolist:create_task' %}">Tambah Tugas</a></button>
+
+<table>
+	<tr>
+		<th>Tanggal</th>
+		<th>Tugas</th>
+		<th>Deskripsi</th>
+		<th>Status</th>
+		<th>Ubah Status</th>
+		<th>Hapus</th>
+	</tr>
+	
+	{% for tugas in list_task %}
+	<tr>
+		<th>{{tugas.date}}</th>
+		<th>{{tugas.title}}</th>
+		<th>{{tugas.description}}</th>
+		<th>{{tugas.is_finished}}</th>
+
+	</tr>
+	{% endfor %}
+</table>
+
+<h5>Sesi terakhir login: {{ last_login }}</h5>
+
+<button><a href="{% url 'todolist:logout' %}">Logout</a></button>
+
+{% endblock content %}
