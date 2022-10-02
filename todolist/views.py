@@ -70,15 +70,6 @@ def ubah_status(request, pk):
     todolist.save()
     return redirect('todolist:show_todolist')
 
-def tambah(request):
-    if request.method == 'POST':
-        task = request.POST.get('task')
-        new_task = Task(task=task)
-        new_task.save()
-        return redirect('todolist:show_todolist')
-    context = {}
-    return render(request, 'tambah.html', context)
-
 def create_task(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
