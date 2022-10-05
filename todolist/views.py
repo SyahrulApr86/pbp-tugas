@@ -76,7 +76,7 @@ def create_task(request):
         if form.is_valid():
             task = Task(
                 user = request.user,
-                date = request.POST.get('date'),
+#                 date = request.POST.get('date'),
                 title = request.POST.get('title'),
                 description = request.POST.get('description'),
             )

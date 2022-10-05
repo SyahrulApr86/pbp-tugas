@@ -6,8 +6,8 @@ class TaskForm(ModelForm):
     class Meta:
         model = Task
         fields = '__all__'
-        exclude = ['user', 'is_finished']
-        
+        exclude = ['user', 'is_finished', 'date']
+
 
         widgets = {
             'date': forms.DateInput({'class': 'form-control', 'type': 'date'}),

@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 
 {% block meta %}
+
+<style>
+	body {
+		background-image: linear-gradient(to right, #af1616, #162ea6);
+	}
+
+</style>
+
 <title>Login</title>
 {% endblock meta %}
 
@@ -8,38 +16,59 @@
 
 <div class = "login">
 	
-	<h1>Login</h1>
-	
-	<form method="POST" action="">
-		{% csrf_token %}
-		<table>
-			<tr>
-				<td>Username: </td>
-				<td><input type="text" name="username" placeholder="Username" class="form-control"></td>
-			</tr>
-			
-			<tr>
-				<td>Password: </td>
-				<td><input type="password" name="password" placeholder="Password" class="form-control"></td>
-			</tr>
-			
-			<tr>
-				<td></td>
-				<td><input class="btn login_btn" type="submit" value="Login"></td>
-			</tr>
-		</table>
-	</form>
-	
-	{% if messages %}
-	<ul>
-		{% for message in messages %}
-		<li>{{ message }}</li>
-		{% endfor %}
-	</ul>
-	{% endif %}
-	
-	Belum mempunyai akun? <a href="{% url 'todolist:register' %}">Buat Akun</a>
-
+	<section class="vh-100">
+		<div class="container py-5 h-100">
+			<div class="row d-flex justify-content-center align-items-center h-100">
+				<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+					<div class="card shadow-2-strong" style="border-radius: 1rem;">
+						<div class="card-body p-5 text-center">
+							<div class = "login">
+								
+								<h1 class="mb-5"> Sign In </h1>
+								
+								<form method="POST" action="">
+									{% csrf_token %}
+									<div class="form-outline mb-4">
+										<tr>
+											<td><input type="text" name="username" placeholder="👤 Username" class="form-control form-control-lg"></td>
+										</tr>
+									</div>
+									
+									<div class="form-outline mb-4">
+										<tr>
+											<td><input type="password" name="password" placeholder="🔐 Password" class="form-control form-control-lg"></td>
+										</tr>
+									</div>
+									
+									<div class="form-check d-flex justify-content-start mb-4">
+										<input class="form-check-input" type="checkbox" value=" " id="form1Example3" />
+										<label class="form-check-label" for="form1Example3"> Remember password </label>
+									</div>
+									
+									<tr>
+										<td><input class="btn btn-primary btn-lg btn-block" style="font-size: 14px;" type="submit" value="Login"></td>
+									</tr>
+									<hr class="my-4">
+								
+								</form>
+								
+								{% if messages %}
+								<ul>
+									{% for message in messages %}
+									<li style="color: red; padding-top: 10px">{{ message }}</li>
+									{% endfor %}
+								</ul>
+								{% endif %}
+								
+								Doesn't have an account? <a style="padding-top: 10px;"href="{% url 'todolist:register' %}">Create Account</a>
+							
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 </div>
 
 {% endblock content %}
