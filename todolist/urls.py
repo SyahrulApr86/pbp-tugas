@@ -12,4 +12,6 @@ urlpatterns = [
     path('create-task/', create_task, name='create_task'),
     path('set-task/<int:pk>', ubah_status, name='ubah_status'),
     path('delete/<int:pk>', hapus, name='hapus'),
+    path('add/', todolist_ajax, name="todolist_ajax" ),
+    path('json/', show_json, name="show_json"),
 ]

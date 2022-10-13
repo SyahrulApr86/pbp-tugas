@@ -7,8 +7,10 @@ from todolist.forms import TaskForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import datetime
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.urls import reverse
+from django.core import serializers
+
 
 # Create your views here.
 def register(request):
@@ -59,7 +61,7 @@ def show_todolist(request):
 def hapus(request, pk):
     task = Task.objects.get(id=pk)
     task.delete()
-    return redirect('todolist:show_todolist')
+    return JsonResponse({'status': 'success'})
 
 def ubah_status(request, pk):
     todolist = Task.objects.get(pk=pk)
@@ -87,3 +89,20 @@ def create_task(request):
 
         context = {'form':form}
         return render(request, 'create_task.html', context)
+
+
+def todolist_ajax(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        date = datetime.datetime.now()
+        user = request.user
+        is_finished = False
+        data = Task(title=title, description=description, date=date, user=user, is_finished=is_finished)
+        data.save()
+        return JsonResponse({'status': 'success'})
+
+
+def show_json(request):
+    data = Task.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")

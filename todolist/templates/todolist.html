@@ -5,23 +5,106 @@
 	body {
 		background-image: linear-gradient(to right, #af1616, #162ea6);
 	}
-	.small-btn {
-		font-size: 15px; border-radius: 10px;
-	}
+
 </style>
+
+<script>
+	
+	function handleCard() {
+		$("#allCards").empty();
+		$.ajax({
+			url: './json/',
+			dataType: 'json',
+			success: function (data) {
+				var styling;
+				for (let i = 0; i < data.length; i++) {
+					
+					let status = "";
+					if (data[i].fields.is_finished === true) {
+						status = "✅ Selesai"
+						styling = "color:rgb(27, 105, 99); font-size: 17px"
+					} else {
+						status = "🚫 Belum Selesai"
+						styling = "color:rgb(253, 38, 18); font-size: 17px"
+					}
+					
+					const date = new Date(data[i].fields.date);
+					const row =
+							`<div class="col mb-4" id="${data[i].pk}">
+                <div class="card shadow rounded h-100">
+                  
+                  <h5 class="card-header" style="${styling}"> ${status} </h5>
+
+                  <div class="card-body">
+                    <h5 class="card-title">${data[i].fields.title}</h5>
+                    <p class="card-text">${data[i].fields.description}</p>
+                    <a class="btn btn-outline-info m-1" role="button" id="small-btn"
+                        href="set-task/${data[i].pk}">Change</a>
+                    <a class="btn btn-outline-danger m-1" role="button" id="small-btn"
+                        onclick="deleteTask(${data[i].pk});">Delete</a>
+                    <p class="text-secondary card-subtitle align-text-bottom mt-3" style="font-size: 13px; text-align: right;">${data[i].fields.date}</p>
+                  </div>
+                  
+                </div>
+              </div>`;
+					
+					$('#allCards').append(row);
+				}
+			},
+		});
+	}
+	
+	function createTask() {
+		var title = $("#task_title").val();
+		var description = $("#task_desc").val();
+		var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val();
+		
+		$.ajax({
+			type: 'POST',
+			url: './add/',
+			data: {
+				title: $("#task_title").val(),
+				description: $("#task_desc").val(),
+				csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+			}, success: function () {
+				handleCard();
+				document.getElementById("taskForm").reset();
+			},
+			error: function (xhr, errmsg, err) {
+				console.log(xhr.status + ": " + xhr.responseText);
+			}
+		})
+	}
+	
+	function deleteTask(id) {
+		$.ajax({
+			url: `./delete/${id}`,
+			dataType: "json",
+			success: function () {
+				$(`#${id}`).remove();
+			}
+		})
+	}
+	
+	$(document).ready(function () {
+		handleCard();
+	})
+
+</script>
+
 {% endblock meta %}
 
 {% block content %}
 
 
-
-
 <section class="vh-100">
 	<div class="container-fluid p-0">
-		<nav class="navbar navbar-expand-lg" style="background-image: linear-gradient(to left, #161b23, #161b23, #161b23);">
+		<nav class="navbar navbar-expand-lg"
+			 style="background-image: linear-gradient(to left, #161b23, #161b23, #161b23);">
 			<div class="container-fluid">
 				<a class="nav-link text-light" href="#">Hi {{nama}}</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+						aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNav">
@@ -31,46 +114,80 @@
 							<a class="nav-link disabled" style="color: #DFD3C3;">{{username}}</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" style="color: #FF0000;" href="{% url 'todolist:logout' %}">Logout</a>
+							<a class="nav-link active" aria-current="page" style="color: #FF0000;"
+							   href="{% url 'todolist:logout' %}">Logout</a>
 						</li>
 					</ul>
 				</div>
 			</div>
 		</nav>
 	</div>
-
-<div class="p-3 mt-2 mb-2 text-light">
-	<h1 class="fw-bold"> To-Do List </h1>
-</div>
-
-<div class="row row-cols-md-3 mx-auto" style="width: 95%" >
-	{% for tugas in list_task %}
-	<div class="col mb-4">
-		<div class="card shadow rounded h-100">
-			{% if tugas.is_finished %}
-			<h5 class="card-header" style="color:rgb(27, 105, 99); font-size: 17px"> ✅ Selesai</h5>
-			{% else %}
-			<h5 class="card-header" style="color:rgb(253, 38, 18); font-size: 17px"> 🚫 Belum Selesai</h5>
-			{% endif %}
-			<div class="card-body">
-				<h5 class="card-title">{{tugas.title}}</h5>
-				<p class="card-text">{{tugas.description}}</p>
-				<a class="btn btn-outline-info m-1 small-btn" role="button" href="{% url 'todolist:ubah_status' tugas.id %}">Change</a>
-				<a class="btn btn-outline-danger m-1 small-btn" role="button" href="{% url 'todolist:hapus' tugas.id %}">Delete</a>
-				<p class="text-secondary card-subtitle align-text-bottom mt-3" style="font-size: 13px; text-align: right;">{{tugas.date}}</p>
+	
+	<div class="p-3 mt-2 mb-2 text-light">
+		<h1 class="fw-bold"> To-Do List </h1>
+	</div>
+	
+	
+	<div class="row row-cols-md-3 mx-auto"
+		 id="allCards" style="width: 95%">
+	</div>
+	
+	<p style="text-align: center">
+		<a class="btn btn-dark m-3" role="button" style="font-size: 17px; border-radius: 20px; width:15rem"
+		   data-bs-toggle="modal"
+		   data-bs-target="#taskModal">Add New Task</a>
+	</p>
+	
+	<div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<h4 class="modal-title mt-3 mb-2 fw-bold subtitle text-dark w-100 text-center"> Create new
+						task!</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+							onclick="document.getElementById('formTask').reset();"></button>
+				</div>
+				
+				<div class="modal-body" style="font-weight: 500">
+					<form method="POST" class="form-floating" id="taskForm">
+						{% csrf_token %}
+						<table>
+							<tr>
+								<p class="title-input mt-1 mb-0 ml-3" style="font-size: 14px; text-align:left"> ✍️
+									To-Do </p>
+								<input style="font-size: 13px" type="text" name="todo" placeholder="To-Do"
+									   id="task_title"
+									   class="form-control">
+							</tr>
+							<tr>
+								<p class="title-input mt-3 mb-0 ml-3" style="font-size: 14px; text-align:left"> 📄
+									Description </p>
+								<input style="font-size: 13px" type="text" name="desc" placeholder="Description"
+									   id="task_desc" class="form-control">
+							</tr>
+							<tr>
+							
+							</tr>
+						</table>
+					
+					</form>
+					<input class="btn login_btn mt-4 mb-4"
+						   style="background: #7f52a9; color:white; font-size: 14px; border-radius: 20px; width:40%"
+						   onmouseover="this.style.backgroundColor='#555'"
+						   onmouseout="this.style.backgroundColor='#7f52a9'"
+						   data-bs-dismiss="modal"
+						   type="submit" name="submit" onclick="createTask();" value="Create task">
+				</div>
 			</div>
 		</div>
 	</div>
-	{% endfor %}
-</div>
-
-<p style="text-align: center">
-	<a class="btn btn-dark m-3" role="button" style="font-size: 17px; border-radius: 20px; width:15rem" href="{% url 'todolist:create_task' %}">Add New Task</a>
-</p>
-
-
-<footer class="blockquote-footer"><center>Sesi terakhir login: {{ last_login }}</center></footer>
-
+	
+	
+	<footer class="blockquote-footer">
+		<div style="text-align: center;">Sesi terakhir login: {{ last_login }}</div>
+	</footer>
+</section>
 
 
 {% endblock content %}
